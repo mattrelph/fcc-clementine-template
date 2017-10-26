@@ -15,6 +15,16 @@ module.exports = function (app, passport) {
 
 	var clickHandler = new ClickHandler();
 
+	app.route('/fred/:fileName')
+		.get(isLoggedIn, function (req, res) {
+			console.log("Getting test route", req.params.fileName);
+			res.sendFile(path + '/public/' + req.params.fileName);
+		});	
+	/*app.route('/simple/:htmlFile')
+			.get(function (req, res) {
+				res.sendFile(path + '/public/' + req.params.htmlFile);
+			});	*/
+
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
 			res.sendFile(path + '/public/index.html');
@@ -55,3 +65,5 @@ module.exports = function (app, passport) {
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
 };
+
+	
